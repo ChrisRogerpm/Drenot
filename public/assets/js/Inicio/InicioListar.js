@@ -4,6 +4,28 @@ let InicioListar = function () {
             let IdDocumento = $(this).data('id');
             RedirigirUrl("EditarDocumento/" + IdDocumento);
         });
+        $(document).on('click', '#GenerarExcel', function () {
+            var obj = {
+                tabla: "table",
+                NombreArchivo: "Documentos",
+                ColumnasEliminar: [
+                    'estado',
+                    'IdDocumento',
+                ],
+                ListaHeaderCustom: [
+                    '#',
+                    'TIPO DOCUMENTO',
+                    'NRO DOCUMENTO',
+                    'REMITENTE',
+                    'DESTINO',
+                    'FECHA',
+                    'ESTADO',
+                    'PRIORIDAD',
+                ],
+                HeadersEliminar: ['OPCION'],
+            };
+            GenerarExcel(obj);
+        });
     }
     const _CargarData = function () {
         $('.form-input-styled').uniform({

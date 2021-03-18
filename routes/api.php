@@ -21,3 +21,6 @@ Route::post('DocumentoEditarJson', 'DocumentoController@DocumentoEditarJson');
 #region Reporte
 Route::get('ReporteDocumentoListarJson', 'ReporteController@ReporteDocumentoListarJson');
 #endregion
+#region Excels
+Route::post('GenerarExcelJson', 'FuncionesController@GenerarExcelJson');
+#endregion

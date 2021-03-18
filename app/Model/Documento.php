@@ -35,7 +35,6 @@ class Documento extends Model
         SELECT
             @row:=@row+1 as nroSecuencia,
             td.nombre AS tipoDocumento,
-            d.IdDocumento,
             d.nroDocumento,
             d.remitente,
             d.destino,
@@ -49,7 +48,8 @@ class Documento extends Model
             WHEN d.prioridad = 2 THEN 'MEDIA' 
             WHEN d.prioridad = 3 THEN 'BAJA'
             ELSE '---' END) AS prioridad,
-            d.estado
+            d.estado,
+            d.IdDocumento
             FROM tbl_documento AS d 
             JOIN tbl_tipo_documento AS td ON td.IdTipoDocumento = d.IdtipoDocumento
             WHERE d.fecha = '$fechaActual'

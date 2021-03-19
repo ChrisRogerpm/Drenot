@@ -18,6 +18,10 @@ class DocumentoController extends Controller
         $documento = Documento::findorfail($IdDocumento);
         return view('Documento.DocumentoEditar', compact('documento'));
     }
+    public function DocumentoFiltroVista()
+    {
+        return view('Documento.DocumentoFiltro');
+    }
     #endregion
     #region JSON
     public function DocumentoListarJson()
@@ -56,11 +60,25 @@ class DocumentoController extends Controller
         try {
             Documento::DocumentoEditar($request);
             $respuesta = true;
-            $mensaje = "Los cambios han sido guardados corectamente!!";
+            $mensaje = "Los cambios han sido guardados correctamente!!";
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
         }
         return response()->json(['respuesta' => $respuesta, 'mensaje' => $mensaje]);
     }
+    public function DocumentoEliminarJson(Request $request)
+    {
+        $respuesta = false;
+        $mensaje = "";
+        try {
+            Documento::DocumentoEliminar($request);
+            $respuesta = true;
+            $mensaje = "Se ha eliminado el documento satisfactoriamente!!";
+        } catch (Exception $ex) {
+            $mensaje = $ex->getMessage();
+        }
+        return response()->json(['respuesta' => $respuesta, 'mensaje' => $mensaje]);
+    }
+
     #endregion
 }

@@ -89,4 +89,10 @@ class Documento extends Model
         $data->save();
         return $data;
     }
+    public static function DocumentoEliminar(Request $request)
+    {
+        $data = Documento::findorfail($request->input('IdDocumento'));
+        $data->delete();
+        return $data;
+    }
 }

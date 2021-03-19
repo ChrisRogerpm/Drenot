@@ -1,4 +1,5 @@
-@extends('Shared.app')
+Hola
+<!-- @extends('Shared.app')
 
 @section('header')
 <div class="page-header page-header-light">
@@ -133,4 +134,4 @@
     documento = @json($documento)
 </script>
 <script src="{{asset('assets/js/Documento/DocumentoEditar.js')}}"></script>
-@endpush
+@endpush -->

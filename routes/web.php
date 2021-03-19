@@ -16,9 +16,13 @@ Route::middleware(['auth'])->group(function () {
     #endregion
     #region Documento
     Route::get('RegistrarDocumento', 'DocumentoController@DocumentoRegistrarVista')->name('Documento.Registrarse');
+    Route::get('DocumentoFiltro', 'DocumentoController@DocumentoFiltroVista')->name('Documento.Filtro');
     Route::get('EditarDocumento/{IdDocumento}', 'DocumentoController@DocumentoEditarVista');
     #endregion
     #region Reporte
     Route::get('ReporteDocumento', 'ReporteController@ReporteDocumentoListarVista')->name('Reporte.Documento');
+    #endregion
+    #region
+    Route::get('Monitoreo', 'MonitoreoController@MonitoreoListarVista')->name('Monitoreo.Listar');
     #endregion
 });

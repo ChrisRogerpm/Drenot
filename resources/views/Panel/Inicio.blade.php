@@ -10,31 +10,14 @@
         <div class="header-elements d-none">
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-link btn-float text-default btnRecargar"><i class="icon-reload-alt text-slate-700"></i> <span>RECARGAR</span></button>
+                <a href="javascript:void(0)" id="GenerarExcel" class="btn btn-link btn-float text-default"><i class="icon-file-excel text-slate-700"></i> <span>GENERAR EXCEL</span></a>
                 <a href="{{route('Documento.Registrarse')}}" class="btn btn-link btn-float text-default"><i class="icon-googleplus5 text-slate-700"></i> <span>NUEVO</span></a>
+                <a href="javascript:void(0)" class="btn btn-link btn-float text-default" id="btnEditar"><i class="icon-pencil5 text-slate-700"></i> <span>EDITAR</span></a>
+                <a href="javascript:void(0)" class="btn btn-link btn-float text-default" id="btnEliminar"><i class="icon-trash text-slate-700"></i> <span>ELIMINAR</span></a>
             </div>
         </div>
     </div>
-    <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
-        <div class="d-flex">
-            <div class="breadcrumb">
-                <a href="#" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> INICIO</a>
-            </div>
-            <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-        </div>
-        <div class="header-elements d-none">
-            <div class="breadcrumb justify-content-center">
-                <div class="breadcrumb-elements-item dropdown p-0">
-                    <a href="#" class="breadcrumb-elements-item dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-gear mr-2"></i>
-                        ACCIÓN
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#" id="GenerarExcel" class="dropdown-item"><i class="icon-file-excel"></i> GENERAR EXCEL</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
 @stop
 
@@ -65,6 +48,12 @@
     </div>
     <div class="col-lg-12">
         <div class="card">
+            <div class="card-header bg-white">
+                <h6 class="card-title">
+                    <i class="icon-calendar mr-2"></i>
+                    FECHA ACTUAL : {{$fechaActual}}
+                </h6>
+            </div>
             <div class="card-body">
                 <table id="table" class="table table-bordered table-sm table-striped" style="width:100%"></table>
             </div>

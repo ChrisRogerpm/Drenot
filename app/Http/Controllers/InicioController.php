@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class InicioController extends Controller
@@ -9,7 +10,8 @@ class InicioController extends Controller
     #region Vista
     public function InicioVista()
     {
-        return view('Panel.Inicio');
+        $fechaActual = Carbon::now()->toDateString();
+        return view('Panel.Inicio', compact('fechaActual'));
     }
     #endregion
     #region Json

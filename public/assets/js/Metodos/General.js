@@ -169,6 +169,7 @@ function simpleDataTable(obj) {
         tableHeaderCheck: false,
         tabledrawCallback: "",
         tablerowCallback: "",
+        tableSearching: true,
     };
 
     var opciones = $.extend({}, defaults, obj);
@@ -184,6 +185,7 @@ function simpleDataTable(obj) {
         "ordering": opciones.tableOrdering,
         "info": opciones.tableInfo,
         "lengthChange": opciones.tableLengthChange,
+        "searching": opciones.tableSearching,
         data: opciones.tableColumnsData,
         columns: opciones.tableColumns,
         "initComplete": function () {

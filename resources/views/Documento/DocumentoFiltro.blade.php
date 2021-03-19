@@ -4,16 +4,18 @@
 <div class="page-header page-header-light">
     <div class="page-header-content header-elements-md-inline">
         <div class="page-title d-flex">
-            <h4><span class="font-weight-semibold"> REPORTE</span></h4>
+            <h4><span class="font-weight-semibold"> BUSCAR</span></h4>
             <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
         </div>
         <div class="header-elements d-none">
             <div class="d-flex justify-content-center">
                 <button type="button" class="btn btn-link btn-float text-default btnRecargar"><i class="icon-reload-alt text-slate-700"></i> <span>RECARGAR</span></button>
-                <button type="button" class="btn btn-link btn-float text-default btnBuscar"><i class="icon-search4 text-slate-700"></i> <span>BUSCAR</span></button>
+                <a href="javascript:void(0)" id="GenerarExcel" class="btn btn-link btn-float text-default"><i class="icon-file-excel text-slate-700"></i> <span>GENERAR EXCEL</span></a>
+                <a href="javascript:void(0)" class="btn btn-link btn-float text-default" id="btnBuscar"><i class="icon-search4 text-slate-700"></i> <span>BUSCAR</span></a>
             </div>
         </div>
     </div>
+
 </div>
 @stop
 
@@ -58,10 +60,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <!-- <table id="table" class="table table-bordered table-sm table-striped" style="width:100%"></table> -->
-                <figure class="highcharts-figure">
-                    <div id="container"></div>
-                </figure>
+                <table id="table" class="table table-bordered table-sm table-striped" style="width:100%"></table>
             </div>
         </div>
     </div>
@@ -69,9 +68,5 @@
 @stop
 
 @push('js')
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script src="{{asset('assets/js/Reporte/ReporteDocumento.js')}}"></script>
+<script src="{{asset('assets/js/Documento/DocumentoFiltro.js')}}"></script>
 @endpush

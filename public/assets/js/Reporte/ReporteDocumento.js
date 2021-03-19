@@ -1,7 +1,31 @@
 let InicioListar = function () {
     const componentes = () => {
         $(document).on('click', '.btnBuscar', function () {
-            ListarDocumentos();
+            $("#frmNuevo").submit();
+            if (_objetoForm_frmNuevo.valid()) {
+                let dataForm = $("#frmNuevo").serializeFormJSON();
+                EnviarDataPost({
+                    url: "ReporteGraficoDocumentoListarJson",
+                    data: dataForm,
+                    showMessag: false,
+                    callBackSuccess: function (response) {
+
+                        let notificados = [];
+                        $.each(response.cantidadPorFechas, function (k, v) {
+                            notificados.push(v.notificados);
+                        });
+                        let pendientes = [];
+                        $.each(response.cantidadPorFechas, function (k, v) {
+                            pendientes.push(v.pendientes);
+                        });
+                        GraficoEstadistico({
+                            categorias: response.fechas,
+                            notificados: notificados,
+                            pendientes: pendientes
+                        });
+                    }
+                });
+            }
         });
     }
     const _CargarData = function () {
@@ -21,100 +45,68 @@ let InicioListar = function () {
             }
         });
     };
-    const ListarDocumentos = function (obj) {
+    const GraficoEstadistico = (obj) => {
         var defaults = {
-            data: $("#frmNuevo").serializeFormJSON(),
+            categorias: [],
+            notificados: [],
+            pendientes: [],
         };
         var opciones = $.extend({}, defaults, obj);
-        CargarTablaDatatable({
-            uniform: true,
-            ajaxUrl: "ReporteDocumentoListarJson",
-            table: "#table",
-            tableOrdering: false,
-            ajaxDataSend: opciones.data,
-            tableColumns: [
-                { data: "nroSecuencia", title: "#" },
-                { data: "tipoDocumento", title: "TIPO DOCUMENTO" },
-                { data: "nroDocumento", title: "NRO DOCUMENTO" },
-                { data: "remitente", title: "REMITENTE" },
-                { data: "destino", title: "DESTINO" },
-                { data: "fecha", title: "FECHA" },
-                { data: "estadoNombre", title: "ESTADO" },
-                { data: "prioridad", title: "PRIORIDAD" },
-                {
-                    data: null, title: "OCPION",
-                    "render": function (value) {
-                        let editar = '<a href="#" class="dropdown-item btnEditar" data-id="' + value.IdDocumento + '"><i class="icon-pencil5"></i> EDITAR</a>'
-                        return '<div class="list-icons">' +
-                            '<div class="dropdown">' +
-                            '<a href="#" class="list-icons-item" data-toggle="dropdown">' +
-                            '<i class="icon-menu9"></i>' +
-                            '</a>' +
-                            '<div class="dropdown-menu dropdown-menu-right">' +
-                            editar +
-                            '</div>' +
-                            '</div>' +
-                            '</div>';
-                    }, class: "text-center"
-                }
-            ],
-            callBackSuccess: function (response) {
-                $("#Notificados").text(response.detalle.notifcados);
-                $("#Pendientes").text(response.detalle.pendientes);
-                $("#Total").text(response.detalle.total);
-            }
-        })
-    };
 
-    const GraficoEstadistico = () => {
         Highcharts.chart('container', {
             chart: {
-                type: 'areaspline'
+                type: 'column'
             },
             title: {
                 text: 'Promedio de documentos durante la semana'
             },
-            legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 150,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor:
-                    Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
-            },
             xAxis: {
-                categories: [
-                    'Lunes',
-                    'Martes',
-                    'Miercoles',
-                    'Jueves',
-                    'Viernes',
-                    'Sabado',
-                    'Domingo'
-                ],
+                categories: opciones.categorias,
+                crosshair: true
             },
             yAxis: {
+                min: 0,
                 title: {
-                    text: 'Fruit units'
+                    text: ''
                 }
             },
             tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
                 shared: true,
-                valueSuffix: ' units'
+                useHTML: true
             },
-            credits: {
-                enabled: false
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
             },
             series: [{
                 name: 'Notificados',
-                data: [3, 4, 3, 5, 4, 10, 12]
+                data: opciones.notificados//[49.9, 71.5, 3]
+
             }, {
                 name: 'Pendientes',
-                data: [1, 3, 4, 3, 3, 5, 4]
+                data: opciones.pendientes//[83.6, 78.8, 2]
             }]
+        });
+    }
+
+    const FormularioValidacion = () => {
+        ValidarFormulario({
+            contenedor: '#frmNuevo',
+            nameVariable: "frmNuevo",
+            rules: {
+                fechaInicial: { required: true },
+                fechaFinal: { required: true, },
+            },
+            messages: {
+                fechaInicial: { required: 'Este campo es requerido' },
+                fechaFinal: { required: 'Este campo es requerido' },
+            }
         });
     }
 
@@ -122,8 +114,8 @@ let InicioListar = function () {
         init: function () {
             componentes();
             _CargarData();
-            ListarDocumentos();
             GraficoEstadistico();
+            FormularioValidacion();
         }
     }
 }();

@@ -48,6 +48,17 @@ class Usuario extends Authenticatable implements JWTSubject
         return $denominacion;
     }
 
+    public static function UsuarioNotificadorListar()
+    {
+        return DB::select(DB::raw("SELECT
+        u.IdUsuario,
+        u.tipoUsuario,
+        u.email,
+        u.telefono,
+        u.estado
+        FROM tbl_usuario as u"));
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();

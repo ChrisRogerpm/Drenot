@@ -37,4 +37,25 @@ class Reporte extends Model
             WHERE d.fecha between '$fechaInicial' AND '$fechaFinal'
         "));
     }
+    public static function ReporteGraficoDocumentoListar(Request $request)
+    {
+        $fechaInicial = $request->input('fechaInicial');
+        $fechaFinal = $request->input('fechaFinal');
+        $fechas = DB::select(DB::raw("SELECT d.fecha FROM tbl_documento AS d WHERE d.fecha BETWEEN '$fechaInicial' AND '$fechaFinal' GROUP by d.fecha"));
+        $cantidadPorFechas = [];
+        $fechaSolas = [];
+        foreach ($fechas as $f) {
+            $cantidadPorFechas[] = [
+                'fecha' => $f->fecha,
+                'pendientes' => collect(DB::select(DB::raw("SELECT d.estado FROM tbl_documento AS d WHERE d.fecha = '$f->fecha' AND d.estado = 1")))->count(),
+                'notificados' => collect(DB::select(DB::raw("SELECT d.estado FROM tbl_documento AS d WHERE d.fecha = '$f->fecha' AND d.estado = 2")))->count()
+            ];
+            $fechaSolas[] = $f->fecha;
+        }
+        return [
+            'fechas' => $fechaSolas,
+            'cantidadPorFechas' => $cantidadPorFechas,
+            // 'fechasSolas' => $fechaSolas
+        ];
+    }
 }

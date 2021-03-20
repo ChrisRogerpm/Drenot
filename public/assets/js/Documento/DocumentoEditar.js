@@ -50,12 +50,16 @@ const DocumentoEditar = function () {
             valorSelect: documento.IdtipoDocumento
         });
 
-        if (documento.estado == 1) {
+        if (documento.estado == 2) {
             document.getElementById("Notificado").checked = true;
             document.getElementById("Devuelto").checked = false;
+            $("#EstadoEtiqueta").text("NOTIFICADO");
+            document.getElementById('EstadoEtiqueta').style.backgroundColor = "#5CB85C";
         } else {
             document.getElementById("Devuelto").checked = true;
             document.getElementById("Notificado").checked = false;
+            $("#EstadoEtiqueta").text("PENDIENTE");
+            document.getElementById('EstadoEtiqueta').style.backgroundColor = "#EFAC4E";
         }
 
         $(".form-check-input-styled").uniform();

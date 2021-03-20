@@ -51,7 +51,9 @@
                 <li class="nav-item dropdown dropdown-user">
                     <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
                         <img src="{{asset('assets/image/default.jpg')}}" class="rounded-circle mr-2" height="34" alt="">
-                        <span>{{Auth::user()->email}}</span>
+                        <span>{{Auth::user()->email}} | {{Auth::user()->NivelUsuario()}}
+                        </span>
+                        <!-- <span> {{Auth::user()->NivelUsuario()}}</span> -->
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
@@ -70,10 +72,11 @@
     <div class="page-content">
 
         <!-- Main sidebar -->
-        <div class="sidebar sidebar-dark sidebar-main bg-danger-800 sidebar-expand-md">
+        <!-- sidebar-dark -->
+        <div class="sidebar sidebar-dark bg-danger-800 sidebar-main bg-danger-800 sidebar-expand-md">
 
             <!-- Sidebar mobile toggler -->
-            <div class="sidebar-mobile-toggler text-center">
+            <div class="sidebar-mobile-toggler bg-danger-800 text-center">
                 <a href="#" class="sidebar-mobile-main-toggle">
                     <i class="icon-arrow-left8"></i>
                 </a>

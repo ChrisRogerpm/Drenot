@@ -27,6 +27,17 @@ let InicioListar = function () {
             let IdDocumento = $(this).val();
             DocumentoSeleccionado = IdDocumento;
         });
+        $(document).on('click', '#btnDetalle', function () {
+            if (DocumentoSeleccionado == "") {
+                ShowAlert({
+                    type: 'warning',
+                    message: 'Seleccione un documento para ir a detalle'
+                })
+            } else {
+                let IdDocumento = DocumentoSeleccionado;
+                RedirigirUrl("DetalleDocumento/" + IdDocumento);
+            }
+        });
         $(document).on('click', '#btnEditar', function () {
             if (DocumentoSeleccionado == "") {
                 ShowAlert({
@@ -97,7 +108,7 @@ let InicioListar = function () {
                 {
                     data: null, title: "ESTADO",
                     "render": function (value) {
-                        if (value.estadoNombre = "PENDIENTE") {
+                        if (value.estado == 1) {
                             return '<span class="badge p-2" style="font-size:12px;color:#ffffff;background-color:#EFAC4E">PENDIENTE</span>';
                         } else {
                             return '<span class="badge p-2" style="font-size:12px;color:#ffffff;background-color:#5CB85C">NOTIFICADO</span>';

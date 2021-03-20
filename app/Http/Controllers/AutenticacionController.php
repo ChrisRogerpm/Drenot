@@ -17,6 +17,10 @@ class AutenticacionController extends Controller
     }
     #endregion
     #region Vista
+    public function PortadaVista()
+    {
+        return view('Portada.Portada');
+    }
     public function LoginVista()
     {
         return view('Autenticacion.Login');

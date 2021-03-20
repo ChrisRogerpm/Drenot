@@ -55,13 +55,36 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12">
+    <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <!-- <table id="table" class="table table-bordered table-sm table-striped" style="width:100%"></table> -->
                 <figure class="highcharts-figure">
                     <div id="container"></div>
                 </figure>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-header bg-white text-center">
+                <h6 class="card-title">
+                    NOTIFICADOS
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row text-center" id="ContenedorNotificados"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="card">
+            <div class="card-header bg-white text-center">
+                <h6 class="card-title">
+                    PENDIENTES
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row text-center" id="ContenedorPendientes"></div>
             </div>
         </div>
     </div>

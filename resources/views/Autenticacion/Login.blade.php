@@ -5,8 +5,8 @@
 	<div class="card-body">
 		<form id="frmNuevo" autocomplete="off" class="login-form">
 			<div class="text-center mb-3">
-				<div class="card-img-actions d-inline-block mb-3">
-					<img class="img-fluid rounded-circle" src="{{asset('assets/image/default.jpg')}}" width="170" height="170" alt="">
+				<div class="card-img-actions d-inline-block mb-3 mt-3">
+					<img class="img-fluid rounded-circle p-3" src="{{asset('assets/image/logoDrenot.png')}}" width="170" height="170" alt="">
 				</div>
 				<h5 class="mb-0 text-dark">Ingrese a su cuenta</h5>
 				<span class="d-block text-dark">Introduzca sus credenciales a continuación</span>
@@ -27,7 +27,7 @@
 				<button type="button" id="btnSesion" class="btn bg-danger-800 btn-block">Ingresar <i class="icon-circle-right2 ml-2"></i></button>
 			</div>
 			<div class="text-center">
-				<a href="{{route('Login.Registrarse')}}" class="text-danger-800">Registrarse?</a> | <a href="javascript:void(0)" class="text-danger-800" >Olvide la contraseña?</a>
+				<a href="{{route('Login.Registrarse')}}" class="text-danger-800">Registrarse?</a> | <a href="javascript:void(0)" class="text-danger-800">Olvide la contraseña?</a>
 			</div>
 		</form>
 	</div>

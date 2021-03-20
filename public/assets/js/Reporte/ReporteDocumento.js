@@ -1,29 +1,54 @@
 let InicioListar = function () {
     const componentes = () => {
         $(document).on('click', '.btnBuscar', function () {
-            $("#frmNuevo").submit();
-            if (_objetoForm_frmNuevo.valid()) {
-                let dataForm = $("#frmNuevo").serializeFormJSON();
-                EnviarDataPost({
-                    url: "ReporteGraficoDocumentoListarJson",
-                    data: dataForm,
-                    showMessag: false,
-                    callBackSuccess: function (response) {
+            _Buscador();
+        });
 
-                        let notificados = [];
-                        $.each(response.cantidadPorFechas, function (k, v) {
-                            notificados.push(v.notificados);
-                        });
-                        let pendientes = [];
-                        $.each(response.cantidadPorFechas, function (k, v) {
-                            pendientes.push(v.pendientes);
-                        });
-                        GraficoEstadistico({
-                            categorias: response.fechas,
-                            notificados: notificados,
-                            pendientes: pendientes
-                        });
-                    }
+    }
+    const _Buscador = () => {
+        $("#frmNuevo").submit();
+        if (_objetoForm_frmNuevo.valid()) {
+            let dataForm = $("#frmNuevo").serializeFormJSON();
+            EnviarDataPost({
+                url: "ReporteGraficoDocumentoListarJson",
+                data: dataForm,
+                showMessag: false,
+                callBackSuccess: function (response) {
+                    GraficoEstadistico({
+                        pendientes: response.pendiente,
+                        notificados: response.notificados
+                    });
+                    _CargarDocumentoDetalle();
+                }
+            });
+        }
+    }
+    const _CargarDocumentoDetalle = () => {
+        let dataForm = $("#frmNuevo").serializeFormJSON();
+        EnviarDataPost({
+            url: "ReporteTipoDocumentoGraficoJson",
+            data: dataForm,
+            showMessag: false,
+            callBackSuccess: function (response) {
+                let NotificadorContenedor = $("#ContenedorNotificados");
+                let PendienteContenedor = $("#ContenedorPendientes");
+                NotificadorContenedor.html("");
+                PendienteContenedor.html("");
+
+                $.each(response.notificadosDetalle, function (k, v) {
+                    NotificadorContenedor.append('<div class="col-12 mb-2">' +
+                        '<p><i class="icon-file-text icon-2x d-inline-block text-info"></i></p>' +
+                        '<h5 class="font-weight-semibold mb-0">' + v.total + '</h5>' +
+                        '<span class="text-muted font-size-sm">' + v.nombre + '</span>' +
+                        '</div>');
+                });
+
+                $.each(response.pendienteDetalle, function (k, v) {
+                    PendienteContenedor.append('<div class="col-12 mb-2">' +
+                        '<p><i class="icon-file-text icon-2x d-inline-block text-info"></i></p>' +
+                        '<h5 class="font-weight-semibold mb-0">' + v.total + '</h5>' +
+                        '<span class="text-muted font-size-sm">' + v.nombre + '</span>' +
+                        '</div>');
                 });
             }
         });
@@ -58,10 +83,11 @@ let InicioListar = function () {
                 type: 'column'
             },
             title: {
-                text: 'Promedio de documentos durante la semana'
+                text: 'Promedio de documentos entre fechas'
             },
             xAxis: {
-                categories: opciones.categorias,
+                // categories: opciones.categorias,
+                categories: ["DOCUMENTOS"],
                 crosshair: true
             },
             yAxis: {
@@ -116,6 +142,8 @@ let InicioListar = function () {
             _CargarData();
             GraficoEstadistico();
             FormularioValidacion();
+            _Buscador();
+            // _CargarDocumentoDetalle();
         }
     }
 }();

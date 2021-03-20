@@ -12,6 +12,9 @@ class Reporte extends Model
     {
         $fechaInicial = $request->input('fechaInicial');
         $fechaFinal = $request->input('fechaFinal');
+
+        $queryTipoDocumento = $request->input('IdtipoDocumento') == "" ? '' : '';
+
         DB::statement(DB::raw('set @row:=0'));
         return DB::select(DB::raw("
         SELECT
@@ -41,21 +44,22 @@ class Reporte extends Model
     {
         $fechaInicial = $request->input('fechaInicial');
         $fechaFinal = $request->input('fechaFinal');
-        $fechas = DB::select(DB::raw("SELECT d.fecha FROM tbl_documento AS d WHERE d.fecha BETWEEN '$fechaInicial' AND '$fechaFinal' GROUP by d.fecha"));
-        $cantidadPorFechas = [];
-        $fechaSolas = [];
-        foreach ($fechas as $f) {
-            $cantidadPorFechas[] = [
-                'fecha' => $f->fecha,
-                'pendientes' => collect(DB::select(DB::raw("SELECT d.estado FROM tbl_documento AS d WHERE d.fecha = '$f->fecha' AND d.estado = 1")))->count(),
-                'notificados' => collect(DB::select(DB::raw("SELECT d.estado FROM tbl_documento AS d WHERE d.fecha = '$f->fecha' AND d.estado = 2")))->count()
-            ];
-            $fechaSolas[] = $f->fecha;
-        }
+        $pendiente = collect(DB::select(DB::raw("SELECT d.estado FROM tbl_documento AS d WHERE d.fecha BETWEEN '$fechaInicial' AND '$fechaFinal' AND d.estado = 1")))->count();
+        $notificados = collect(DB::select(DB::raw("SELECT d.estado FROM tbl_documento AS d WHERE d.fecha BETWEEN '$fechaInicial' AND '$fechaFinal' AND d.estado = 2")))->count();
         return [
-            'fechas' => $fechaSolas,
-            'cantidadPorFechas' => $cantidadPorFechas,
-            // 'fechasSolas' => $fechaSolas
+            'pendiente' => [$pendiente],
+            'notificados' => [$notificados],
+        ];
+    }
+    public static function ReporteTipoDocumentoGrafico(Request $request)
+    {
+        $fechaInicial = $request->input('fechaInicial');
+        $fechaFinal = $request->input('fechaFinal');
+        $pendienteDetalle = DB::select(DB::raw("SELECT td.nombre,(SELECT COUNT(d.IdDocumento) FROM tbl_documento AS d WHERE d.IdtipoDocumento = td.IdtipoDocumento AND d.fecha BETWEEN '$fechaInicial' AND '$fechaFinal' AND d.estado = 1) AS total FROM tbl_tipo_documento AS td"));
+        $notificadosDetalle = DB::select(DB::raw("SELECT td.nombre,(SELECT COUNT(d.IdDocumento) FROM tbl_documento AS d WHERE d.IdtipoDocumento = td.IdtipoDocumento AND d.fecha BETWEEN '$fechaInicial' AND '$fechaFinal' AND d.estado = 2) AS total FROM tbl_tipo_documento AS td"));
+        return [
+            'pendienteDetalle' => $pendienteDetalle,
+            'notificadosDetalle' => $notificadosDetalle,
         ];
     }
 }

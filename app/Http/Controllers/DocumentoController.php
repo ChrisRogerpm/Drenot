@@ -18,6 +18,11 @@ class DocumentoController extends Controller
         $documento = Documento::findorfail($IdDocumento);
         return view('Documento.DocumentoEditar', compact('documento'));
     }
+    public function DocumentoDetalleVista($IdDocumento)
+    {
+        $documento = Documento::findorfail($IdDocumento);
+        return view('Documento.DocumentoDetalle', compact('documento'));
+    }
     public function DocumentoFiltroVista()
     {
         return view('Documento.DocumentoFiltro');

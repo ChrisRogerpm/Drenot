@@ -13,6 +13,7 @@
                 <a href="javascript:void(0)" id="GenerarExcel" class="btn btn-link btn-float text-default"><i class="icon-file-excel text-slate-700"></i> <span>GENERAR EXCEL</span></a>
                 <a href="{{route('Documento.Registrarse')}}" class="btn btn-link btn-float text-default"><i class="icon-googleplus5 text-slate-700"></i> <span>NUEVO</span></a>
                 <a href="javascript:void(0)" class="btn btn-link btn-float text-default" id="btnEditar"><i class="icon-pencil5 text-slate-700"></i> <span>EDITAR</span></a>
+                <a href="javascript:void(0)" class="btn btn-link btn-float text-default" id="btnDetalle"><i class="icon-pencil5 text-slate-700"></i> <span>DETALLE</span></a>
                 <a href="javascript:void(0)" class="btn btn-link btn-float text-default" id="btnEliminar"><i class="icon-trash text-slate-700"></i> <span>ELIMINAR</span></a>
             </div>
         </div>

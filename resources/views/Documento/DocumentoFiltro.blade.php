@@ -26,6 +26,31 @@
             <div class="card-body">
                 <form id="frmNuevo">
                     <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for=""><b>TIPO DE DOCUMENTO:</b></label>
+                                <select name="IdtipoDocumento" id="CbIdtipoDocumento" class="form-control" style="width:100%;"></select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for=""><b>NRO DOCUMENTO:</b></label>
+                                <input type="text" class="form-control" name="nroDocumento" id="nroDocumento">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for=""><b>REMITENTE:</b></label>
+                                <input type="text" class="form-control" name="remitente" id="remitente">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for=""><b>DESTINO:</b></label>
+                                <input type="text" class="form-control" name="destino" id="destino">
+                            </div>
+                        </div>
+
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <label for=""><b><i class="icon-calendar mr-1"></i>FECHA INICIAL:</b></label>

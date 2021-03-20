@@ -36,4 +36,17 @@ class ReporteController extends Controller
         }
         return response()->json(['data' => $data, 'mensaje' => $mensaje, 'respuesta' => $respuesta]);
     }
+    public function ReporteTipoDocumentoGraficoJson(Request $request)
+    {
+        $data = "";
+        $mensaje = "";
+        $respuesta = false;
+        try {
+            $data = Reporte::ReporteTipoDocumentoGrafico($request);
+            $respuesta = true;
+        } catch (Exception $ex) {
+            $mensaje = $ex->getMessage();
+        }
+        return response()->json(['data' => $data, 'mensaje' => $mensaje, 'respuesta' => $respuesta]);
+    }
 }

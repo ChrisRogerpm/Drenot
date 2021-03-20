@@ -43,6 +43,12 @@ let BuscarListar = function () {
                 ],
             }
         });
+        CargarDataSelect({
+            url: "TipoDocumentoListarJson",
+            idSelect: "#CbIdtipoDocumento",
+            dataId: "IdTipoDocumento",
+            dataValor: "nombre",
+        });
     };
     const ListarDocumentos = function (obj) {
         var defaults = {

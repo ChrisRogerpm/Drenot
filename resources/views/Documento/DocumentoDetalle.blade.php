@@ -10,7 +10,6 @@
         <div class="header-elements d-none">
             <div class="d-flex justify-content-center">
                 <a href="{{route('Inicio.Listar')}}" class="btn btn-link btn-float text-default btnVolver"><i class="icon-arrow-left7 text-slate-700"></i> <span>VOLVER</span></a>
-                <button type="button" class="btn btn-link btn-float text-default btnGuardar"><i class="icon-floppy-disk text-slate-700"></i> <span>GUARDAR</span></button>
             </div>
         </div>
     </div>
@@ -24,8 +23,7 @@
             <div class="card-header bg-white header-elements-inline">
                 <h6 class="card-title text-white"> </h6>
                 <div class="header-elements">
-                    <span class="badge bg-orange p-2" id="EstadoEtiqueta" style="font-size:14px;">NOTIFICADO</span>
-                    <!-- <span class="badge bg-orange p-2" id="EstadoPendiente" style="font-size:14px;">PENDIENTE</span> -->
+                    <span class="badge bg-orange p-2" id="EstadoEtiqueta" style="font-size:14px;">PENDIENTE</span>
                 </div>
             </div>
             <div class="card-body">
@@ -37,31 +35,31 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for=""><b>TIPO DE DOCUMENTO:</b></label>
-                                        <select name="IdtipoDocumento" id="CbIdtipoDocumento" class="form-control" style="width:100%;"></select>
+                                        <select name="IdtipoDocumento" id="CbIdtipoDocumento" class="form-control" style="width:100%;" disabled></select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for=""><b>NRO DOCUMENTO:</b></label>
-                                        <input type="text" class="form-control" name="nroDocumento" id="nroDocumento">
+                                        <input type="text" class="form-control" name="nroDocumento" id="nroDocumento" disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for=""><b>REMITENTE:</b></label>
-                                        <input type="text" class="form-control" name="remitente" id="remitente">
+                                        <input type="text" class="form-control" name="remitente" id="remitente" disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for=""><b>DESTINO:</b></label>
-                                        <input type="text" class="form-control" name="destino" id="destino">
+                                        <input type="text" class="form-control" name="destino" id="destino" disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for=""><b>FECHA:</b></label>
-                                        <input type="text" class="form-control Fecha" name="fecha" id="fecha">
+                                        <input type="text" class="form-control Fecha" name="fecha" id="fecha" disabled>
                                     </div>
                                 </div>
 
@@ -74,7 +72,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for=""><b>PRIORIDAD:</b></label>
-                                        <select name="prioridad" id="Cbprioridad" class="form-control" style="width:100%;">
+                                        <select name="prioridad" id="Cbprioridad" class="form-control" style="width:100%;" disabled>
                                             <option value="">-- Seleccione --</option>
                                             <option value="1">ALTA</option>
                                             <option value="2">MEDIA</option>
@@ -85,7 +83,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for=""><b>TELEFONO:</b></label>
-                                        <input type="text" class="form-control" name="telefono" id="telefono">
+                                        <input type="text" class="form-control" name="telefono" id="telefono" disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -93,14 +91,14 @@
                                         <label class="d-block font-weight-semibold">ESTADO:</label>
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input-styled" id="Notificado" name="estado" checked data-fouc value="2">
+                                                <input type="radio" class="form-check-input-styled" id="Notificado" name="estado" checked data-fouc value="1" disabled>
                                                 NOTIFICADO CON ACTA
                                             </label>
                                         </div>
 
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label">
-                                                <input type="radio" class="form-check-input-styled" id="Devuelto" name="estado" data-fouc value="1">
+                                                <input type="radio" class="form-check-input-styled" id="Devuelto" name="estado" data-fouc value="2" disabled>
                                                 DEVUELTO CON INFORME
                                             </label>
                                         </div>
@@ -109,13 +107,13 @@
                                 <div class="col-lg-6">
                                     <div class="form-grou2">
                                         <label for=""><b>DIRECCIÓN:</b></label>
-                                        <input type="text" class="form-control" name="direccion" id="direccion">
+                                        <input type="text" class="form-control" name="direccion" id="direccion" disabled>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for=""><b>OBSERVACIÓN:</b></label>
-                                        <textarea name="observaciones" id="observaciones" cols="30" rows="5" class="form-control" style="resize: none;"></textarea>
+                                        <textarea name="observaciones" id="observaciones" cols="30" rows="5" class="form-control" style="resize: none;" disabled></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -133,5 +131,5 @@
 <script>
     documento = @json($documento)
 </script>
-<script src="{{asset('assets/js/Documento/DocumentoEditar.js')}}"></script>
+<script src="{{asset('assets/js/Documento/DocumentoDetalle.js')}}"></script>
 @endpush

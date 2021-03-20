@@ -13,32 +13,42 @@ class Reporte extends Model
         $fechaInicial = $request->input('fechaInicial');
         $fechaFinal = $request->input('fechaFinal');
 
-        $queryTipoDocumento = $request->input('IdtipoDocumento') == "" ? '' : '';
+        $IdtipoDocumento = $request->input('IdtipoDocumento');
+        $nroDocumento = $request->input('nroDocumento');
+        $remitente = $request->input('remitente');
+        $destino = $request->input('destino');
+
+        $queryTipoDocumento = $IdtipoDocumento == null ? '' : "AND d.IdtipoDocumento = $IdtipoDocumento";
+        $queryNroDocumento = $nroDocumento == null ? '' : "AND d.nroDocumento like '%$nroDocumento%' ";
+        $queryremitente = $remitente == null ? '' : "AND d.remitente like '%$remitente%' ";
+        $querydestino = $destino == null ? '' : "AND d.destino like '%$destino%' ";
 
         DB::statement(DB::raw('set @row:=0'));
-        return DB::select(DB::raw("
-        SELECT
-            @row:=@row+1 as nroSecuencia,
-            td.nombre AS tipoDocumento,
-            d.IdDocumento,
-            d.nroDocumento,
-            d.remitente,
-            d.destino,
-            d.fecha,
-            (CASE 
-            WHEN d.estado = 1 THEN 'PENDIENTE' 
-            WHEN d.estado = 2 THEN 'NOTIFICADO' 
-            ELSE '---' END) AS estadoNombre,
-            (CASE 
-            WHEN d.prioridad = 1 THEN 'ALTA' 
-            WHEN d.prioridad = 2 THEN 'MEDIA' 
-            WHEN d.prioridad = 3 THEN 'BAJA'
-            ELSE '---' END) AS prioridad,
-            d.estado
-            FROM tbl_documento AS d 
-            JOIN tbl_tipo_documento AS td ON td.IdTipoDocumento = d.IdtipoDocumento
-            WHERE d.fecha between '$fechaInicial' AND '$fechaFinal'
-        "));
+        $queryFinal = "SELECT
+        @row:=@row+1 as nroSecuencia,
+        td.nombre AS tipoDocumento,
+        d.IdDocumento,
+        d.nroDocumento,
+        d.remitente,
+        d.destino,
+        d.fecha,
+        (CASE 
+        WHEN d.estado = 1 THEN 'PENDIENTE' 
+        WHEN d.estado = 2 THEN 'NOTIFICADO' 
+        ELSE '---' END) AS estadoNombre,
+        (CASE 
+        WHEN d.prioridad = 1 THEN 'ALTA' 
+        WHEN d.prioridad = 2 THEN 'MEDIA' 
+        WHEN d.prioridad = 3 THEN 'BAJA'
+        ELSE '---' END) AS prioridad,
+        d.estado
+        FROM tbl_documento AS d 
+        JOIN tbl_tipo_documento AS td ON td.IdTipoDocumento = d.IdtipoDocumento
+        WHERE d.fecha between '$fechaInicial' AND '$fechaFinal' $queryTipoDocumento
+        $queryNroDocumento
+        $queryremitente
+        $querydestino";
+        return DB::select(DB::raw($queryFinal));
     }
     public static function ReporteGraficoDocumentoListar(Request $request)
     {
